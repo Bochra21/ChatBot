@@ -1,0 +1,77 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hallo", "Wie geht's?", "Yo", "Grüß dich", "Alles klar?"],
+      "responses": [
+        "Hallo!",
+        "Grüß dich!",
+        "Wie geht's?",
+        "Freut mich, dich zu sehen!",
+        "Hallo, wie läuft's?"
+      ]
+    },
+    {
+      "tag": "treatments",
+      "patterns": [
+        "Welche ästhetischen Behandlungen bieten Sie an?",
+        "Können Sie mir Informationen über die ästhetischen Behandlungen geben?",
+        "Welche Behandlungen haben Sie?",
+        "Welche Schönheitsbehandlungen sind verfügbar?",
+        "Was für ästhetische Behandlungen gibt es?"
+      ],
+      "responses": [
+        "Wir bieten eine Vielzahl von ästhetischen Behandlungen an, darunter Lifting, Rhinoplastik und Botox.",
+        "Unsere verfügbaren Behandlungen umfassen Lifting, Rhinoplastik, Botox und viele mehr.",
+        "Wir haben verschiedene ästhetische Behandlungen wie Lifting, Rhinoplastik und Botox im Angebot."
+      ]
+    },
+    {
+      "tag": "pricing",
+      "patterns": [
+        "0",
+        "Können Sie mir die Preise für die Behandlungen nennen?",
+        "Was kosten die Schönheitsbehandlungen?",
+        "Wie hoch sind die Preise für ästhetische Behandlungen?",
+        "Wie teuer sind die Behandlungen?"
+      ],
+      "responses": [
+        "Die Preise für unsere ästhetischen Behandlungen variieren je nach Art der Behandlung. Für genaue Preise kontaktieren Sie uns bitte.",
+        "Unsere Behandlungen haben unterschiedliche Preise. Bitte besuchen Sie unsere Website oder kontaktieren Sie uns für detaillierte Informationen.",
+        "Die Kosten für ästhetische Behandlungen hängen von der spezifischen Behandlung ab. Weitere Informationen finden Sie auf unserer Website oder indem Sie uns kontaktieren."
+      ]
+    },
+    {
+      "tag": "general_questions",
+      "patterns": [
+        "Was ist MedJourney?",
+        "Können Sie mir Informationen über MedJourney geben?",
+        "Was macht Ihre Agentur?",
+        "Was bietet MedJourney an?",
+        "Was genau ist MedJourney?"
+      ],
+      "responses": [
+        "MedJourney ist eine Plattform für Medizintourismus, die sich auf ästhetische Behandlungen in Sousse, Tunesien, spezialisiert hat.",
+        "Unsere Agentur bietet umfassende Unterstützung für Kunden, die nach ästhetischen Behandlungen in Sousse suchen, einschließlich Beratung und Terminvereinbarung.",
+        "MedJourney hilft deutschen Kunden, ästhetische Behandlungen in Sousse, Tunesien, zu finden und zu buchen."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Tschüss",
+        "Auf Wiedersehen",
+        "Bis bald",
+        "Ciao",
+        "Bis später"
+      ],
+      "responses": [
+        "Es war schön, mit dir zu reden",
+        "Bis später!",
+        "Wir sprechen uns bald wieder!",
+        "Mach's gut",
+        "Auf Wiedersehen!"
+      ]
+    }
+  ]
+}

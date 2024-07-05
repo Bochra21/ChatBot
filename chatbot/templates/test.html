@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedJourney</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      .chat-container {
+        width: 80%;
+        max-width: 600px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .chat-header,
+      .chat-footer {
+        background-color: #41807c;
+        color: white;
+        padding: 10px;
+        text-align: center;
+      }
+      .chat-messages {
+        flex-grow: 1;
+        padding: 10px;
+        overflow-y: auto;
+        background-color: #fafafa;
+      }
+      .chat-messages p {
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #e1e1e1;
+        border-radius: 5px;
+      }
+      .chat-messages .user-message {
+        background-color: #41807c;
+        color: white;
+        align-self: flex-end;
+      }
+      .chat-messages .bot-message {
+        background-color: #c9e4e2;
+        color: black;
+        border-color: #41807c;
+        align-self: flex-start;
+      }
+      .chat-input {
+        display: flex;
+      }
+      .chat-input input {
+        flex-grow: 1;
+        padding: 10px;
+        border: none;
+        border-top: 1px solid #e1e1e1;
+      }
+      .chat-input button {
+        padding: 10px 20px;
+        background-color: #c9e4e2;
+        color: black;
+        border: none;
+        cursor: pointer;
+      }
+      .chat-input button:hover {
+        background-color: #aed6d3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">
+        <h2>MedJourney</h2>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <!-- Messages will be displayed here -->
+      </div>
+      <div class="chat-footer">
+        <div class="chat-input">
+          <input
+            type="text"
+            id="message-input"
+            placeholder="Type a message..."
+          />
+          <button id="send-button">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function sendMessageToFlask(messageText) {
+        console.log("sendMessageToFlask called with:", messageText);
+
+        if (messageText === "") return;
+
+        const messageElement = document.createElement("p");
+        messageElement.classList.add("user-message");
+        messageElement.textContent = messageText;
+
+        const chatMessages = document.getElementById("chat-messages");
+        chatMessages.appendChild(messageElement);
+
+        const messageInput = document.getElementById("message-input");
+        messageInput.value = "";
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Send messageText to Flask backend
+        fetch("http://localhost:5000/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: messageText }),
+        })
+          .then((response) => {
+            console.log("Fetch response:", response);
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Response JSON:", data);
+            if (data.response) {
+              const responseText = data.response;
+              const responseElement = document.createElement("p");
+              responseElement.classList.add("bot-message");
+              responseElement.textContent = responseText;
+              chatMessages.appendChild(responseElement);
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+            } else if (data.error) {
+              console.error("Error from server:", data.error);
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      // Event listener for Send button click
+      document
+        .getElementById("send-button")
+        .addEventListener("click", function () {
+          console.log("Send button clicked");
+          const messageInput = document.getElementById("message-input");
+          const messageText = messageInput.value.trim();
+
+          if (messageText === "") return;
+
+          sendMessageToFlask(messageText);
+        });
+
+      // Event listener for Enter key press in the input field
+      document
+        .getElementById("message-input")
+        .addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            console.log("Enter key pressed");
+            event.preventDefault();
+            document.getElementById("send-button").click();
+          }
+        });
+    </script>
+  </body>
+</html>
